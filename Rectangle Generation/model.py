@@ -11,7 +11,7 @@ from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 import numpy as np
 from keras.models import Sequential
-from keras.layers import LSTM,Dense
+from keras.layers import LSTM,Dense,Dropout
 
 
 
@@ -67,8 +67,10 @@ for i in range(X.shape[0]):
 
 
 model =Sequential()
-model.add(LSTM(units=10,input_shape=(1,2),return_sequences=True))
-model.add(LSTM(20))
+model.add(LSTM(units=128,input_shape=(1,2),return_sequences=True))
+model.add(Dropout(0.2))
+model.add(LSTM(128))
+model.add(Dropout(0.2))
 model.add(Dense(units=2,activation='linear'))
 model.compile(loss='mae',optimizer='adam')
 model.summary()
